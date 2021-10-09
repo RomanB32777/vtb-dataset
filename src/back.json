@@ -1,0 +1,266 @@
+{
+    "data": {
+      "search": {
+        "searchResults": [
+          {
+            "entity": {
+              "urn": "urn:li:dataset:(urn:li:dataPlatform:hdfs,SampleHdfsDataset,PROD)",
+              "type": "DATASET",
+              "name": "SampleHdfsDataset",
+              "schemaMetadata": {
+                "aspectVersion": 0,
+                "fields": [
+                  {
+                    "jsonPath": null,
+                    "fieldPath": "shipment_info",
+                    "description": "Shipment info description",
+                    "nativeDataType": "varchar(100)",
+                    "isPartOfKey": false
+                  },
+                  {
+                    "jsonPath": null,
+                    "fieldPath": "shipment_info.date",
+                    "description": "Shipment info date description",
+                    "nativeDataType": "Date",
+                    "isPartOfKey": false
+                  },
+                  {
+                    "jsonPath": null,
+                    "fieldPath": "shipment_info.target",
+                    "description": "Shipment info target description",
+                    "nativeDataType": "text",
+                    "isPartOfKey": false
+                  },
+                  {
+                    "jsonPath": null,
+                    "fieldPath": "shipment_info.destination",
+                    "description": "Shipment info destination description",
+                    "nativeDataType": "varchar(100)",
+                    "isPartOfKey": false
+                  },
+                  {
+                    "jsonPath": null,
+                    "fieldPath": "shipment_info.geo_info",
+                    "description": "Shipment info geo_info description",
+                    "nativeDataType": "varchar(100)",
+                    "isPartOfKey": false
+                  },
+                  {
+                    "jsonPath": null,
+                    "fieldPath": "shipment_info.geo_info.lat",
+                    "description": "Shipment info geo_info lat",
+                    "nativeDataType": "float",
+                    "isPartOfKey": false
+                  },
+                  {
+                    "jsonPath": null,
+                    "fieldPath": "shipment_info.geo_info.lng",
+                    "description": "Shipment info geo_info lng",
+                    "nativeDataType": "float",
+                    "isPartOfKey": false
+                  }
+                ],
+                "datasetUrn": null,
+                "cluster": null,
+                "createdAt": null
+              }
+            }
+          },
+          {
+            "entity": {
+              "urn": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)",
+              "type": "DATASET",
+              "name": "SampleHiveDataset",
+              "schemaMetadata": {
+                "aspectVersion": 0,
+                "fields": [
+                  {
+                    "jsonPath": null,
+                    "fieldPath": "field_foo",
+                    "description": "Foo field description",
+                    "nativeDataType": "varchar(100)",
+                    "isPartOfKey": false
+                  },
+                  {
+                    "jsonPath": null,
+                    "fieldPath": "field_bar",
+                    "description": "Bar field description",
+                    "nativeDataType": "boolean",
+                    "isPartOfKey": false
+                  }
+                ],
+                "datasetUrn": null,
+                "cluster": null,
+                "createdAt": null
+              }
+            }
+          },
+          {
+            "entity": {
+              "urn": "urn:li:dataset:(urn:li:dataPlatform:hive,fct_users_created,PROD)",
+              "type": "DATASET",
+              "name": "fct_users_created",
+              "schemaMetadata": {
+                "aspectVersion": 0,
+                "fields": [
+                  {
+                    "jsonPath": null,
+                    "fieldPath": "user_id",
+                    "description": "Id of the user created",
+                    "nativeDataType": "varchar(100)",
+                    "isPartOfKey": false
+                  },
+                  {
+                    "jsonPath": null,
+                    "fieldPath": "user_name",
+                    "description": "Name of the user who signed up",
+                  "nativeDataType": "boolean",
+                  "isPartOfKey": false
+                }
+              ],
+              "datasetUrn": null,
+              "cluster": null,
+              "createdAt": null
+            }
+          }
+        },
+        {
+          "entity": {
+            "urn": "urn:li:dataset:(urn:li:dataPlatform:hive,fct_users_deleted,PROD)",
+            "type": "DATASET",
+            "name": "fct_users_deleted",
+            "schemaMetadata": {
+              "aspectVersion": 0,
+              "fields": [
+                {
+                  "jsonPath": null,
+                  "fieldPath": "user_name",
+                  "description": "Name of the user who was deleted",
+                  "nativeDataType": "varchar(100)",
+                  "isPartOfKey": false
+                },
+                {
+                  "jsonPath": null,
+                  "fieldPath": "timestamp",
+                  "description": "Timestamp user was deleted at",
+                  "nativeDataType": "long",
+                  "isPartOfKey": false
+                },
+                {
+                  "jsonPath": null,
+                  "fieldPath": "user_id",
+                  "description": "Id of the user deleted",
+                  "nativeDataType": "varchar(100)",
+                  "isPartOfKey": false
+                },
+                {
+                  "jsonPath": null,
+                  "fieldPath": "browser_id",
+                  "description": "Cookie attached to identify the browser",
+                  "nativeDataType": "varchar(100)",
+                  "isPartOfKey": false
+                },
+                {
+                  "jsonPath": null,
+                  "fieldPath": "session_id",
+                  "description": "Cookie attached to identify the session",
+                  "nativeDataType": "varchar(100)",
+                  "isPartOfKey": false
+                },
+                {
+                  "jsonPath": null,
+                  "fieldPath": "deletion_reason",
+                  "description": "Why the user chose to deactivate",
+                  "nativeDataType": "varchar(100)",
+                  "isPartOfKey": false
+                }
+              ],
+              "datasetUrn": null,
+              "cluster": null,
+              "createdAt": null
+            }
+          }
+        },
+        {
+          "entity": {
+            "urn": "urn:li:dataset:(urn:li:dataPlatform:hive,logging_events,PROD)",
+            "type": "DATASET",
+            "name": "logging_events",
+            "schemaMetadata": {
+              "aspectVersion": 0,
+              "fields": [
+                {
+                  "jsonPath": null,
+                  "fieldPath": "event_name",
+                  "description": "Name of your logging event",
+                  "nativeDataType": "varchar(100)",
+                  "isPartOfKey": false
+                },
+                {
+                  "jsonPath": null,
+                  "fieldPath": "event_data",
+                  "description": "Data of your event",
+                  "nativeDataType": "boolean",
+                  "isPartOfKey": false
+                },
+                {
+                  "jsonPath": null,
+                  "fieldPath": "timestamp",
+                  "description": "TS the event was ingested",
+                  "nativeDataType": "boolean",
+                  "isPartOfKey": false
+                },
+                {
+                  "jsonPath": null,
+                  "fieldPath": "browser",
+                  "description": null,
+                  "nativeDataType": "string",
+                  "isPartOfKey": false
+                }
+              ],
+              "datasetUrn": null,
+              "cluster": null,
+              "createdAt": null
+            }
+          }
+        },
+        {
+          "entity": {
+            "urn": "urn:li:dataset:(urn:li:dataPlatform:kafka,SampleKafkaDataset,PROD)",
+            "type": "DATASET",
+            "name": "SampleKafkaDataset",
+            "schemaMetadata": {
+                "aspectVersion": 0,
+                "fields": [
+                  {
+                    "jsonPath": null,
+                    "fieldPath": "[version=2.0].[type=boolean].field_foo_2",
+                    "description": "Foo field description",
+                    "nativeDataType": "varchar(100)",
+                    "isPartOfKey": false
+                  },
+                  {
+                    "jsonPath": null,
+                    "fieldPath": "[version=2.0].[type=boolean].field_bar",
+                    "description": "Bar field description",
+                    "nativeDataType": "boolean",
+                    "isPartOfKey": false
+                  },
+                  {
+                    "jsonPath": null,
+                    "fieldPath": "[version=2.0].[key=True].[type=int].id",
+                    "description": "Id specifying which partition the message should go to",
+                    "nativeDataType": "boolean",
+                    "isPartOfKey": false
+                  }
+                ],
+                "datasetUrn": null,
+                "cluster": null,
+                "createdAt": null
+              }
+            }
+          }
+        ]
+      }
+    }
+  }

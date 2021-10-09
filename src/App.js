@@ -17,6 +17,7 @@ import { HomePage } from './pages/HomePage';
 import { Sidebar } from './components/Sidebar';
 import { CreatePage } from './pages/CreatePage';
 import { AuditPage } from './pages/AuditPage';
+import { observer } from 'mobx-react-lite';
 
 
 
@@ -61,11 +62,20 @@ function App() {
               }}
             >
               <Switch>
-                {routers.map(({ path, Component }) => (
+                {/* {routers.map(({ path, Component }) => (
                   <Route key={path} exact path={path}>
                     {Component}
                   </Route>
-                ))}
+                ))} */}
+                <Route exact path="/create">
+                  <CreatePage />
+                </Route>
+                <Route exact path="/audit">
+                  <AuditPage />
+                </Route>
+                <Route exact path="/">
+                  <HomePage />
+                </Route>
               </Switch>
             </Content>
           </Layout>

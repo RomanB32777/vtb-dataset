@@ -100,14 +100,14 @@ export const HomePage = () => {
                 <Col span={6}>
                     <Card >
                         <img src={done} />
-                        <p>DataState status</p>
+                        <p>DataSet status</p>
                     </Card>
                 </Col>
 
                 <Col span={6}>
                     <Card>
                         <img src={update} />
-                        <p>DataState status</p>
+                        <p>DataSet status</p>
                     </Card>
                 </Col>
 
@@ -115,7 +115,7 @@ export const HomePage = () => {
                     <Card>
                         {/* <CloseCircleOutlined className="site-result-demo-error-icon" /> */}
                         <img src={cancel} />
-                        <p>DataState status</p>
+                        <p>DataSet status</p>
                     </Card>
                 </Col>
             </Row>
