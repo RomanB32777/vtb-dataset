@@ -1,56 +1,54 @@
-import React from 'react';
-import { Menu, Button } from 'antd';
+import React, { useState } from 'react';
+// import {
+    // AppstoreOutlined,
+
+    // PieChartOutlined,
+    // DesktopOutlined,
+    // ContainerOutlined,
+//     // MailOutlined,
+// } from '@ant-design/icons';
+
+import { Layout, Menu, Row, Col, Avatar, Popover } from 'antd';
 import {
-    AppstoreOutlined,
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-    PieChartOutlined,
-    DesktopOutlined,
-    ContainerOutlined,
-    MailOutlined,
+  UserOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
 } from '@ant-design/icons';
 
-const { SubMenu } = Menu;
 
 
-export const Navbar = () => {
+import mainStore from '../store/mainStore';
+import { observer } from 'mobx-react-lite';
+
+
+const { Header } = Layout;
+
+const content = (
+  <div>
+    <p>Content</p>
+    <p>Content</p>
+  </div>
+);
+
+
+export const Navbar = observer(() => {
+
     return (
-        <div >
-            {/* <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
-          {React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
-        </Button> */}
-            <Menu
-                defaultSelectedKeys={['1']}
-                defaultOpenKeys={['sub1']}
-                mode="inline"
-                // theme="dark"
-              inlineCollapsed={true}
-            >
-                <Menu.Item key="1" icon={<PieChartOutlined />}>
-                    Option 1
-                </Menu.Item>
-                <Menu.Item key="2" icon={<DesktopOutlined />}>
-                    Option 2
-                </Menu.Item>
-                <Menu.Item key="3" icon={<ContainerOutlined />}>
-                    Option 3
-                </Menu.Item>
-                <SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
-                    <Menu.Item key="5">Option 5</Menu.Item>
-                    <Menu.Item key="6">Option 6</Menu.Item>
-                    <Menu.Item key="7">Option 7</Menu.Item>
-                    <Menu.Item key="8">Option 8</Menu.Item>
-                </SubMenu>
-                <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
-                    <Menu.Item key="9">Option 9</Menu.Item>
-                    <Menu.Item key="10">Option 10</Menu.Item>
-                    <SubMenu key="sub3" title="Submenu">
-                        <Menu.Item key="11">Option 11</Menu.Item>
-                        <Menu.Item key="12">Option 12</Menu.Item>
-                    </SubMenu>
-                </SubMenu>
-            </Menu>
-        </div>
-    )
+        <Header className="site-layout-background" style={{ padding: 0 }}>
+            <Row>
+                {React.createElement(mainStore.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                    className: 'trigger',
+                    onClick: () => mainStore.setCollapsed(!mainStore.collapsed),
+                })}
 
-}
+                <Col span={3} offset={18}>
+                    <span style={{ marginRight: '0.5rem' }}> Name </span>
+                    <Popover content={content} title="Title" trigger="click">
+                        <Avatar size="large" icon={<UserOutlined />} />
+                    </Popover>
+
+                </Col>
+            </Row>
+        </Header>
+    )
+})
