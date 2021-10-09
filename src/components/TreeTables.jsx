@@ -14,7 +14,8 @@ export const TreeTables = observer(() => {
             key: `${i}-0`,
             children: entity.schemaMetadata.fields.map((f, ii) => ({
                 title: f.fieldPath,
-                key: `${i}-${ii + 1}`
+                key: `${i}-${ii + 1}`,
+                parent: `${i}-0`
             }))
         })
         )])
@@ -22,8 +23,14 @@ export const TreeTables = observer(() => {
 
 
     const onSelect = (selectedKeys, info) => {
-        if (!info.selectedNodes[0].hasOwnProperty('children'))
-            mainStore.setAttrOptions([...mainStore.atrrOptions, info.selectedNodes[0]])
+        console.log(info.selectedNodes[0]);
+        if (!info.selectedNodes[0].hasOwnProperty('children')) {
+            // console.log();
+            mainStore.setAttrOptions({...mainStore.atrrOptions, [info.selectedNodes[0].parent]: mainStore.atrrOptions[info.selectedNodes[0].parent] ? [...mainStore.atrrOptions[info.selectedNodes[0].parent], info.selectedNodes[0]] : [info.selectedNodes[0]]})
+        }
+        else {
+            mainStore.setSelectedTables([...mainStore.selectedTables, info.selectedNodes[0]])
+        }
     };
 
     return (

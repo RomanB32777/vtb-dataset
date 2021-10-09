@@ -3,7 +3,8 @@ import { makeAutoObservable } from "mobx"
 class MainStore {
 
     collapsed = false
-    atrrOptions = []
+    atrrOptions = {}
+    selectedTables = []
 
     constructor() {
         makeAutoObservable(this)
@@ -15,7 +16,10 @@ class MainStore {
 
     setAttrOptions(options) {
         this.atrrOptions = options
-        console.log(this.atrrOptions, options);
+    }
+
+    setSelectedTables(tables) {
+        this.selectedTables = tables
     }
 }
 
