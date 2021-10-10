@@ -24,6 +24,6 @@
   background: #fff;
 }
 
-.table-card:not(:first-child) {
+/* .table-card:not(:first-child) {
   display: none;
-}
+} */

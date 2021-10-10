@@ -22,7 +22,13 @@ class MainStore {
         this.selectedTables = tables
     }
 
+    get getNamesOfSelectedTables() {
+        return this.selectedTables.map(table => table.title)
+    }
+
     get getAllSelectedOptions() {
+        // console.log(this.atrrOptions);
+
         return Object.keys(this.atrrOptions).reduce((arr, curr) => {
             this.atrrOptions[curr].forEach(i => arr.push(i)) // ?????? 
             return arr

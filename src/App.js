@@ -9,7 +9,13 @@ import {
   Route,
 } from "react-router-dom";
 
+
 import { Layout } from 'antd';
+
+import {
+  UserOutlined,
+} from '@ant-design/icons';
+
 import { HomePage } from './pages/HomePage';
 import { Sidebar } from './components/Sidebar';
 import { CreatePage } from './pages/CreatePage';
@@ -22,17 +28,20 @@ function App() {
     {
       path: '/',
       title: 'Главная',
-      Component: HomePage
+      Component: HomePage,
+      icon: UserOutlined // ?
     },
     {
       path: '/create',
       title: 'Создать фичу',
-      Component: CreatePage
+      Component: CreatePage,
+      icon: UserOutlined
     },
     {
       path: '/audit',
       title: 'Аудит',
-      Component: AuditPage
+      Component: AuditPage,
+      icon: UserOutlined
     },
   ]
 
