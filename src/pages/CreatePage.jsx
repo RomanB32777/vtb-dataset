@@ -20,8 +20,12 @@ export const CreatePage = observer(() => {
     const [request, setRequest] = useState({})
     const [requestText, setRequestText] = useState('')
 
-    const handleChange = (key, parentKey) => {
-        // console.log(`Selected: ${key} ${parentKey}`, { ...mainStore.atrrOptions, [parentKey]: mainStore.atrrOptions[parentKey] ? [...mainStore.atrrOptions[parentKey].filter(o => o.key !== key) ] : [info.selectedNodes[0]] });
+    const handleChange = (key) => {
+        console.log(key);
+        // mainStore.setAttrOptions({...mainStore.atrrOptions, [parentKey]})
+        // const option = mainStore.getAllSelectedOptions.find(option => option.key === key[0]); // удаляет локально
+
+        // console.log({ ...mainStore.atrrOptions, [parentKey]: mainStore.atrrOptions[parentKey] ? [...mainStore.atrrOptions[parentKey].filter(o => o.key !== key) ] : [info.selectedNodes[0]] });
         // mainStore.setAttrOptions(
 
         // mainStore.atrrOptions[table.key].map(option => option.key )
@@ -82,14 +86,14 @@ export const CreatePage = observer(() => {
                             <Card className="table-card" style={{ marginTop: i !== 0 ? '1rem' : '0' }} key={table.key} title={`Конструктор запросов`} >
                                 {/* extra={<CloseOutlined onClick={() => removeCard(table.key)} />} */}
                                 <div style={{ marginBottom: '1rem' }}>
-                                    {!!parameters.length && parameters.map((p, i) => <Tag key={i} onClick={() => TagClick(p)} color="processing">{p}</Tag>)}
+                                    {!!parameters.length && parameters.map((p, i) => <Tag  style={{ marginTop: '0.3rem' }} key={i} onClick={() => TagClick(p)} color="processing">{p}</Tag>)}
                                 </div>
-                                <Card style={{ marginBottom: '1rem' }} type="inner" title={`Атрибуты таблицы ${table.title}`} >
+                                <Card style={{ marginBottom: '1rem' }} type="inner" title={`Атрибуты таблиц`} >
                                     <Select
                                         mode="multiple"
                                         size='default'
                                         placeholder="Please select"
-                                        onChange={selected => handleChange(selected, table.key)}
+                                        onChange={selected => handleChange(selected)}
                                         style={{ width: '100%' }}
                                         value={mainStore.getAllSelectedOptions && mainStore.getAllSelectedOptions.map(option => option.key)}
                                     >
