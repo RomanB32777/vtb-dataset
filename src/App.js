@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Navbar } from './components/Navbar';
 import 'antd/dist/antd.css';
 import './App.css';
-
 
 import {
   BrowserRouter as Router,
@@ -10,20 +9,13 @@ import {
   Route,
 } from "react-router-dom";
 
-
 import { Layout } from 'antd';
-
 import { HomePage } from './pages/HomePage';
 import { Sidebar } from './components/Sidebar';
 import { CreatePage } from './pages/CreatePage';
 import { AuditPage } from './pages/AuditPage';
-import { observer } from 'mobx-react-lite';
-
-
 
 const { Content } = Layout;
-
-
 
 function App() {
   const routers = [

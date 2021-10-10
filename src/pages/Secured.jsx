@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import UserInfo from './UserInfo';
-import Logout from './Logout';
-import Keycloak from '../keycloak-js';
+import Logout from '../components/Logout';
+import { Link } from "react-router-dom";
+
+import Keycloak from 'keycloak-js';
 
 export const Secured = () => {
 
@@ -17,28 +19,36 @@ export const Secured = () => {
 
     }, [])
 
+    useEffect(() => {
+        console.log(keycloak);
+    }, [keycloak])
+
     if (!keycloak)
-        return (<div>Initializing Keycloak...</div>);
+        return (
+            <span style={{ marginRight: '0.5rem' }}><Link to="/auth/admin/hack/console/">Вход</Link></span>
+        );
 
     return (
         <div>
             {authenticated ? (
-                <div>
-                    <p>
-                        This is a Keycloak-secured component of your application. You shouldn't be able to see this
-                        unless you've authenticated with Keycloak.
-                    </p>
-                    <UserInfo keycloak={keycloak} />
-                    <Logout keycloak={keycloak} />
-                </div>
+                <span style={{ marginRight: '0.5rem' }}>
+                    <Link to="/">demo_vtb_client</Link>
+                </span>
             ) : (
-                <div>Unable to authenticate!</div>
+                <span style={{ marginRight: '0.5rem' }}><Link to="/auth/admin/hack/console/">Повторить вход</Link></span>
             )}
         </div>
     )
 }
 
-
+                // <div>
+                //     <p>
+                //         This is a Keycloak-secured component of your application. You shouldn't be able to see this
+                //         unless you've authenticated with Keycloak.
+                //     </p>
+                //     <UserInfo keycloak={keycloak} />
+                //     <Logout keycloak={keycloak} />
+                // </div>
 
 
 

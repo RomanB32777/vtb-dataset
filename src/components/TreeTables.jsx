@@ -23,15 +23,12 @@ export const TreeTables = observer(() => {
 
 
     const onSelect = (selectedKeys, info) => {
-        console.log(info.selectedNodes[0]);
-        if (!info.selectedNodes[0].hasOwnProperty('children')) {
-            // console.log();
-            mainStore.setAttrOptions({...mainStore.atrrOptions, [info.selectedNodes[0].parent]: mainStore.atrrOptions[info.selectedNodes[0].parent] ? [...mainStore.atrrOptions[info.selectedNodes[0].parent], info.selectedNodes[0]] : [info.selectedNodes[0]]})
-        }
-        else {
+        // console.log(info.selectedNodes[0]);
+        (!info.selectedNodes[0].hasOwnProperty('children')) ?
+            mainStore.setAttrOptions({ ...mainStore.atrrOptions, [info.selectedNodes[0].parent]: mainStore.atrrOptions[info.selectedNodes[0].parent] ? [...mainStore.atrrOptions[info.selectedNodes[0].parent], info.selectedNodes[0]] : [info.selectedNodes[0]] })
+            :
             mainStore.setSelectedTables([...mainStore.selectedTables, info.selectedNodes[0]])
-        }
-    };
+    }    
 
     return (
         <div>

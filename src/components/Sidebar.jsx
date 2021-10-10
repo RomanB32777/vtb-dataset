@@ -19,7 +19,7 @@ export const Sidebar = observer(({ routers }) => {
             <div style={{ backgroundSize: mainStore.collapsed ? "100%" : "55%" }} className="logo" />
             <Menu mode="inline" defaultSelectedKeys={['1']}>
                 {routers.map((router, key) => (
-                    <Menu.Item key={key} icon={<UserOutlined />}>
+                    <Menu.Item key={key} >  {/* icon={<UserOutlined />} */}
                         <NavLink to={router.path}>{router.title}</NavLink>
                     </Menu.Item>
                 ))}

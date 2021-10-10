@@ -1,0 +1,8 @@
+keycloack oidc json {
+  "realm": "hack",
+  "auth-server-url": "http://localhost:8191/auth/",
+  "ssl-required": "external",
+  "resource": "demo_vtb_client",
+  "public-client": true,
+  "confidential-port": 0
+}

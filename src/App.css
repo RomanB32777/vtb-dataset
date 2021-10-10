@@ -23,3 +23,7 @@
 .site-layout .site-layout-background {
   background: #fff;
 }
+
+.table-card:not(:first-child) {
+  display: none;
+}
