@@ -19,7 +19,6 @@ export const CreatePage = observer(() => {
     const [parameterInput, setParameterInput] = useState('')
     const [request, setRequest] = useState({})
     const [requestText, setRequestText] = useState('')
-    const [allSelectedOptions, setAllSelectedOptions] = useState([])
 
     const handleChange = (key, parentKey) => {
         // console.log(`Selected: ${key} ${parentKey}`, { ...mainStore.atrrOptions, [parentKey]: mainStore.atrrOptions[parentKey] ? [...mainStore.atrrOptions[parentKey].filter(o => o.key !== key) ] : [info.selectedNodes[0]] });
@@ -70,22 +69,6 @@ export const CreatePage = observer(() => {
         request && setRequestText(Object.keys(request).reduce((str, curr) => str + request[curr] + '\n', ''))
     }, [request])
 
-    useEffect(() => {
-        // console.log('hjghgj', mainStore.atrrOptions);
-        // setAllSelectedOptions
-        const all = Object.keys(mainStore.atrrOptions).reduce((arr, curr) => {
-            // console.log("curr", mainStore.atrrOptions[curr]);
-            mainStore.atrrOptions[curr].forEach(i => arr.push(i)) // ?????? 
-            return arr
-        }, [])
-
-        setAllSelectedOptions(all)
-
-        // console.log(mainStore.atrrOptions);
-    }, [mainStore.atrrOptions])
-
-
-
     return (
         <div>
             <Row>
@@ -108,11 +91,11 @@ export const CreatePage = observer(() => {
                                         placeholder="Please select"
                                         onChange={selected => handleChange(selected, table.key)}
                                         style={{ width: '100%' }}
-                                        value={mainStore.atrrOptions[table.key] && mainStore.atrrOptions[table.key].map(option => option.key)}
+                                        value={mainStore.getAllSelectedOptions && mainStore.getAllSelectedOptions.map(option => option.key)}
                                     >
                                         {/* {mainStore.atrrOptions && Object.keys(mainStore.atrrOptions).map(table => console.log(mainStore.atrrOptions[table]))} */}
                                         {/* {mainStore.atrrOptions[table.key] && mainStore.atrrOptions[table.key].map(option => ( */}
-                                        {allSelectedOptions && allSelectedOptions.map(option => (
+                                        {mainStore.getAllSelectedOptions && mainStore.getAllSelectedOptions.map(option => (
                                             <Option key={option.key}>{option.title}</Option>
                                         ))}
                                     </Select>
