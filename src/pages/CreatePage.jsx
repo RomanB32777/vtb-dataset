@@ -116,7 +116,7 @@ export const CreatePage = observer(() => {
                                 displayDataTypes={false}
                                 enableClipboard={false}
                                 src={finalJSON}
-                            // theme="monokai"
+                            // theme="monokai" 
                             />
                         }
                     </Card>
