@@ -1,41 +1,22 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Row, Select, Card, Button, Tag, Input } from 'antd';
 import { TreeTables } from '../components/TreeTables';
 import mainStore from '../store/mainStore';
 import { observer } from 'mobx-react-lite';
-import JSON from '../back.json'
-import {
-    CloseOutlined,
-} from '@ant-design/icons';
+import json from '../back.json'
+import { CardTitle } from '../components/UI/Card/CardTitle';
+import ReactJson from 'react-json-view'
 
 const { TextArea } = Input;
-const { Option } = Select;
 
 export const CreatePage = observer(() => {
 
-    const parameters = ['SELECT', 'FROM', 'LEFT JOIN', 'RIGHT JOIN', 'INNER JOIN', 'WHERE', 'GROUP BY', 'HAVING', 'ORDER BY', 'LIMIT']
-
     const [currentParameter, setCurrentParameter] = useState('')
     const [parameterInput, setParameterInput] = useState('')
-    const [request, setRequest] = useState({})
     const [requestText, setRequestText] = useState('')
-
-    const handleChange = (key) => {
-        // console.log(key);
-        // mainStore.setAttrOptions({...mainStore.atrrOptions, [parentKey]})
-        // const option = mainStore.getAllSelectedOptions.find(option => option.key === key[0]); // удаляет локально
-
-        // console.log({ ...mainStore.atrrOptions, [parentKey]: mainStore.atrrOptions[parentKey] ? [...mainStore.atrrOptions[parentKey].filter(o => o.key !== key) ] : [info.selectedNodes[0]] });
-        // mainStore.setAttrOptions(
-
-        // mainStore.atrrOptions[table.key].map(option => option.key )
-
-        // проверка, на существование опшина (если есть, то удаляем)
-    }
-
-    const removeCard = (id) => {
-        mainStore.setSelectedTables([...mainStore.selectedTables.filter(table => { console.log(table); return (table.key !== id) })])
-    }
+    const [request, setRequest] = useState({})
+    const [selectedOptions, setSelectedOptions] = useState([])
+    const [finalJSON, setFinalJSON] = useState("")
 
     const TagClick = parameter => {
         setCurrentParameter(parameter)
@@ -43,28 +24,29 @@ export const CreatePage = observer(() => {
     }
 
     const addParameterInRequest = (parameter) => {
-        setRequest({ ...request, [parameter]: parameterInput }) // не укально для таблиц ?????
+        setRequest({ ...request, [parameter]: parameterInput })
         setParameterInput(`${parameter} `)
     }
 
-    const sendJSON = () => { /// исправить - передавать массив таблиц ?? и по каждой таблице проходить, чтобы что-то делать ??
-        const arr = mainStore.getAllSelectedOptions.reduce((arr, option) => {
-            console.log("option", option);
-            const table = JSON.data.search.searchResults.filter(table => table.entity.name === option.parentName) // !!!!
-            const fields = table[0].entity.schemaMetadata.fields.filter(field => field.fieldPath === option.title)
-            arr[option.title] = { ...fields[0] } //, parent: title ??
+    const sendJSON = () => {
+        const arrAttributes = selectedOptions.reduce((arr, option) => {
+            const table = json.data.search.searchResults.find(table => table.entity.name === option.parentName)
+            const fields = table.entity.schemaMetadata.fields.find(field => field.fieldPath === option.title)
+            arr[option.title] = { ...fields } //, parent: title ??
             return arr
-        }, [])
+        }, {})
 
 
         const obj = {
             parameters: { ...request },
-            attributes: arr,
+            attributes: arrAttributes,
             request: requestText
         }
 
-        console.log(obj);
         setRequestText("")
+        setFinalJSON(obj)
+        // console.log(requestText, obj.request, JSON.stringify(obj));
+
         // const json = JSON.stringify(obj);
         // console.log(JSON.stringify(obj) );
     }
@@ -73,32 +55,41 @@ export const CreatePage = observer(() => {
         request && setRequestText(Object.keys(request).reduce((str, curr) => str + request[curr] + '\n', ''))
     }, [request])
 
+    useEffect(() => {
+        if (mainStore.getAllSelectedOptions.length) {
+            (selectedOptions.length < mainStore.getAllSelectedOptions.length) ?
+                setSelectedOptions([...selectedOptions, mainStore.getAllSelectedOptions[mainStore.getAllSelectedOptions.length - 1]]) // добавление таблицы
+                :
+                setSelectedOptions([...selectedOptions.filter(option => mainStore.getAllSelectedOptions.includes(option))]) // удалние таблицы
+        }
+    }, [mainStore.getAllSelectedOptions])
+
     return (
         <div>
             <Row>
-                <Col span={6}>
-                    <TreeTables />
+                <Col span={5}>
+                    <Card className="table-card" title="Список Data Sets" style={{ marginRight: '1rem' }} >
+                        <TreeTables />
+                    </Card>
                 </Col>
-                <Col span={18}>
+                <Col span={10}>
                     {!!mainStore.selectedTables.length ?
                         (
                             <Card className="table-card" title={`Конструктор запросов`} >
                                 <div style={{ marginBottom: '1rem' }}>
-                                    {!!parameters.length && parameters.map((p, i) => <Tag style={{ marginTop: '0.3rem' }} key={i} onClick={() => TagClick(p)} color="processing">{p}</Tag>)}
+                                    {!!mainStore.parameters.length && mainStore.parameters.map((p, i) => <Tag style={{ marginTop: '0.3rem', cursor: 'pointer' }} key={i} onClick={() => TagClick(p)} color="processing">{p}</Tag>)}
                                 </div>
-                                <Card style={{ marginBottom: '1rem' }} type="inner" title={`Атрибуты таблиц ${mainStore.getNamesOfSelectedTables.join(", ")}`} >
+                                <Card style={{ marginBottom: '1rem' }} title={<CardTitle heading={"Атрибуты таблиц"} />} type="inner">
                                     <Select
                                         mode="multiple"
                                         size='default'
                                         placeholder="Please select"
-                                        onChange={selected => handleChange(selected)}
                                         style={{ width: '100%' }}
-                                        value={mainStore.getAllSelectedOptions && mainStore.getAllSelectedOptions.map(option => option.key)}
-                                    >
-                                        {mainStore.getAllSelectedOptions && mainStore.getAllSelectedOptions.map(option => (
-                                            <Option key={option.key}>{option.title}</Option>
-                                        ))}
-                                    </Select>
+                                        onDeselect={deselected => setSelectedOptions(selectedOptions.filter(o => o.key !== deselected))}
+                                        onSelect={key => setSelectedOptions([...selectedOptions, mainStore.getAllSelectedOptions.find(o => o.key === key)])}
+                                        value={selectedOptions.map(option => option.key)}
+                                        options={mainStore.getAllSelectedOptions && mainStore.getAllSelectedOptions.map(option => ({ value: option.key, label: `${option.title} (${option.parentName})` }))} // , parent: option.parent
+                                    />
                                 </Card>
                                 {currentParameter !== "" &&
                                     <Card type="inner" title={`Заполните параметр ${currentParameter}`}>
@@ -111,10 +102,24 @@ export const CreatePage = observer(() => {
                             </Card>
                         )
                         :
-                        (<Card style={{ marginTop: '1rem' }} title={`Конструктор запросов`} >
+                        (<Card title={`Конструктор запросов`} >
                             <p>Выберите таблицы и атрибуты слева для создания запроса.</p>
                         </Card>)
                     }
+                </Col>
+                <Col style={{ marginLeft: '1rem' }} span={8}>
+                    <Card title="Сформированный запрос" >
+                        {finalJSON &&
+                            <ReactJson
+                                name={false}
+                                displayObjectSize={false}
+                                displayDataTypes={false}
+                                enableClipboard={false}
+                                src={finalJSON}
+                            // theme="monokai"
+                            />
+                        }
+                    </Card>
                 </Col>
             </Row>
         </div>
